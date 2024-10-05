@@ -7,27 +7,25 @@
 
 import UIKit
 
-protocol Coordinator: Any {
-    var parentCoordinator: Coordinator? {get set}
-    var children: [Coordinator] {get set}
-    var navigationController: UINavigationController {get set}
+class AppCoordinator: BaseCoordinator {
     
-    func start()
-}
-
-
-class AppCoordinator: Coordinator{
-    var parentCoordinator: (any Coordinator)?
-    var children: [any Coordinator] = []
-    var navigationController: UINavigationController
+    private var window: UIWindow
     
-    init(navController: UINavigationController) {
-        self.navigationController = navController
-    }
-    
-    func start() {
+    private var navigationController: UINavigationController = {
+        let navCon = UINavigationController()
         
+        return navCon
+    }()
+    
+    init(window: UIWindow) {
+        self.window = window
+        self.window.rootViewController = navigationController
+        self.window.makeKeyAndVisible()
     }
     
-    
+    override func start() {
+        let mainViewControllerCoordinator = MainViewControllerCoordinator(navigationController: navigationController)
+        add(coordinator: mainViewControllerCoordinator)
+        mainViewControllerCoordinator.start()
+    }
 }
