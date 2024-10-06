@@ -20,6 +20,17 @@ final class OnBoardingView: UIView {
         return view
     }()
     
+    //MARK: - BackView
+    
+    lazy var backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.layer.cornerRadius = 54
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -37,6 +48,7 @@ final class OnBoardingView: UIView {
 extension OnBoardingView {
     func setupUI(){
         addSubview(womanBackgroundImage)
+        addSubview(backView)
     }
     
     func constraintsUI(){
@@ -45,6 +57,11 @@ extension OnBoardingView {
             womanBackgroundImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             womanBackgroundImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
             womanBackgroundImage.heightAnchor.constraint(equalToConstant: 410),
+            
+            backView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            backView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 130),
         ])
     }
 }
