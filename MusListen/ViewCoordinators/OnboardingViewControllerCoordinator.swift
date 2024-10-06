@@ -22,8 +22,9 @@ class OnboardingViewControllerCoordinator: BaseCoordinator {
     }
     
     func goToSignInVC() {
-        let signInViewController = SignInViewController()
-        self.navigationController.pushViewController(signInViewController, animated: true)
+        let signInViewControllerCoordinator = SignInViewControllerCoordinator(navigationController: navigationController)
+        add(coordinator: signInViewControllerCoordinator)
+        signInViewControllerCoordinator.start()
     }
     
 }
