@@ -13,7 +13,7 @@ class AppCoordinator: BaseCoordinator {
     
     private var navigationController: UINavigationController = {
         let navCon = UINavigationController()
-        
+        navCon.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20, weight: .bold)]
         return navCon
     }()
     
@@ -24,8 +24,8 @@ class AppCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        let mainViewControllerCoordinator = MainViewControllerCoordinator(navigationController: navigationController)
-        add(coordinator: mainViewControllerCoordinator)
-        mainViewControllerCoordinator.start()
+        let onboardingViewControllerCoordinator = OnboardingViewControllerCoordinator(navigationController: navigationController)
+        add(coordinator: onboardingViewControllerCoordinator)
+        onboardingViewControllerCoordinator.start()
     }
 }
