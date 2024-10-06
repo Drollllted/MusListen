@@ -10,10 +10,16 @@ import UIKit
 class OnBoardingViewController: UIViewController {
     
     weak var onBoardingViewControllerCoordinator: OnboardingViewControllerCoordinator?
+    private var onBoardingView: OnBoardingView!
+    
+    override func loadView() {
+        onBoardingView = OnBoardingView()
+        view = onBoardingView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view.backgroundColor = .onBoardBack
     }
     
 }

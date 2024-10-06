@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AfacadFlux-Black.ttf</string>
+		<string>AfacadFlux-Bold.ttf</string>
+		<string>AfacadFlux-ExtraBold.ttf</string>
+		<string>AfacadFlux-ExtraLight.ttf</string>
+		<string>AfacadFlux-Light.ttf</string>
+		<string>AfacadFlux-Medium.ttf</string>
+		<string>AfacadFlux-Regular.ttf</string>
+		<string>AfacadFlux-SemiBold.ttf</string>
+		<string>AfacadFlux-Thin.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
