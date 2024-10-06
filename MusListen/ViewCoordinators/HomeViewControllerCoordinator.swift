@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewControllerCoordinator: BaseCoordinator{
+class HomeViewControllerCoordinator: BaseCoordinator{
     private var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -15,7 +15,7 @@ class MainViewControllerCoordinator: BaseCoordinator{
     }
     
     override func start() {
-        let mainViewController = MainViewController()
+        let mainViewController = HomeViewController()
         mainViewController.mainViewControllerCoordinator = self
         navigationController.pushViewController(mainViewController, animated: true)
     }
