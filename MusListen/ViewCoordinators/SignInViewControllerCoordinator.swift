@@ -1,5 +1,5 @@
 //
-//  OnboardingViewControllerCoordinator.swift
+//  SignInViewControllerCoordinator.swift
 //  MusListen
 //
 //  Created by Drolllted on 06.10.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboardingViewControllerCoordinator: BaseCoordinator {
+final class SignInViewControllerCoordinator: BaseCoordinator {
     
     private var navigationController: UINavigationController
     
@@ -16,13 +16,8 @@ class OnboardingViewControllerCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        let onboardingViewController = OnBoardingViewController()
-        onboardingViewController.onBoardingViewControllerCoordinator = self
-        self.navigationController.pushViewController(onboardingViewController, animated: true)
-    }
-    
-    func goToSignInVC() {
         let signInViewController = SignInViewController()
+        signInViewController.signInViewControllerCoordinator = self
         self.navigationController.pushViewController(signInViewController, animated: true)
     }
     
