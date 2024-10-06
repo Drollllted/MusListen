@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.Drolllted.MuzListen</string>
+	<string>com.Drolllted.MusListen</string>
 	<key>PROJECT_ID</key>
 	<string>muzlisten-86dfc</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:193390199515:ios:5d56f789e83e960f3742fe</string>
+	<string>1:193390199515:ios:9f2e359fd467c4283742fe</string>
 </dict>
 </plist>
