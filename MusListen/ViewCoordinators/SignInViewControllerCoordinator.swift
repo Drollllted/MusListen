@@ -18,6 +18,7 @@ final class SignInViewControllerCoordinator: BaseCoordinator {
     override func start() {
         let signInViewController = SignInViewController()
         signInViewController.signInViewControllerCoordinator = self
+        signInViewController.navigationItem.hidesBackButton = true
         self.navigationController.pushViewController(signInViewController, animated: true)
     }
     
