@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DDD113352CB2F8A8003872CA /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DDD113342CB2F8A8003872CA /* FirebaseCore */; };
+		DDD113E52CB309E8003872CA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DDD113E42CB309E8003872CA /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDD113352CB2F8A8003872CA /* FirebaseCore in Frameworks */,
+				DDD113E52CB309E8003872CA /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = MusListen;
 			packageProductDependencies = (
 				DDD113342CB2F8A8003872CA /* FirebaseCore */,
+				DDD113E42CB309E8003872CA /* FirebaseStorage */,
 			);
 			productName = MusListen;
 			productReference = DDD1124F2CB096CC003872CA /* MusListen.app */;
@@ -359,6 +362,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DDD113032CB2F724003872CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
+		};
+		DDD113E42CB309E8003872CA /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDD113032CB2F724003872CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

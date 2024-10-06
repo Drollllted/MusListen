@@ -14,7 +14,6 @@ final class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        print("231")
     }
     
 }
