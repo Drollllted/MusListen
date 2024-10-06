@@ -20,6 +20,11 @@ class OnBoardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .onBoardBack
+        onBoardingView.getStartedButton.addTarget(self, action: #selector(goToSignIn), for: .touchUpInside)
+    }
+    
+    @objc private func goToSignIn() {
+        onBoardingViewControllerCoordinator?.goToSignInVC()
     }
     
 }

@@ -31,6 +31,34 @@ final class OnBoardingView: UIView {
         return view
     }()
     
+    lazy var introTextLabel: UILabel = {
+        let label = UILabel()
+        label.font = .customFont(named: .afacadFluxBold, size: 28)
+        
+        label.text = "From the latest to the greatest hits, play your favorite tracks on musium now!"
+        
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var getStartedButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Get Started", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        
+        button.layer.cornerRadius = 30
+        button.backgroundColor = .onBoardBack
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -49,6 +77,8 @@ extension OnBoardingView {
     func setupUI(){
         addSubview(womanBackgroundImage)
         addSubview(backView)
+        addSubview(introTextLabel)
+        addSubview(getStartedButton)
     }
     
     func constraintsUI(){
@@ -62,6 +92,15 @@ extension OnBoardingView {
             backView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             backView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 130),
+            
+            introTextLabel.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 30),
+            introTextLabel.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -30),
+            introTextLabel.topAnchor.constraint(equalTo: backView.topAnchor, constant: 50),
+            
+            getStartedButton.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 10),
+            getStartedButton.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -10),
+            getStartedButton.heightAnchor.constraint(equalToConstant: 60),
+            getStartedButton.bottomAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 }
