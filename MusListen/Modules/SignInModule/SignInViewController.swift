@@ -10,11 +10,18 @@ import UIKit
 final class SignInViewController: UIViewController {
     
     weak var signInViewControllerCoordinator: SignInViewControllerCoordinator?
+    private var signInView: SignInView!
+    
+    override func loadView() {
+        signInView = SignInView()
+        view = signInView
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        print("231")
+        title = "Sign In"
     }
     
 }
