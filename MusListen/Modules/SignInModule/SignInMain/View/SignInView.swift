@@ -9,9 +9,7 @@ import UIKit
 
 final class SignInView: UIView {
     
-    let googleButton = CustomButton().setupConnectWithButton(logo: "logoGoogle", name: "Google")
-    let faceBookButton = CustomButton().setupConnectWithButton(logo: "logoFacebook", name: "Facebook")
-    let appleButton = CustomButton().setupConnectWithButton(logo: "logoApple", name: "Apple")
+    private var customButton = CustomButton()
     
     //MARK: - Logo
     
@@ -45,9 +43,6 @@ final class SignInView: UIView {
         stack.alignment = .center
         
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(googleButton)
-        stack.addArrangedSubview(faceBookButton)
-        stack.addArrangedSubview(appleButton)
         
         return stack
     }()
@@ -121,6 +116,14 @@ final class SignInView: UIView {
         setupUI()
         
         constraintsUI()
+        
+        let googleButton = customButton.setupConnectWithButton(logo: "logoGoogle", name: "Google")
+        let faceBookButton = customButton.setupConnectWithButton(logo: "logoFacebook", name: "Facebook")
+        let appleButton = customButton.setupConnectWithButton(logo: "logoApple", name: "Apple")
+        
+        stackButtonsRegister.addArrangedSubview(googleButton)
+        stackButtonsRegister.addArrangedSubview(faceBookButton)
+        stackButtonsRegister.addArrangedSubview(appleButton)
     }
     
     required init?(coder: NSCoder) {
