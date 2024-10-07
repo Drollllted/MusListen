@@ -32,7 +32,6 @@ final class SignInViewController: UIViewController {
     //MARK: - Segue
     
     @objc private func goToSignInWithEmail() {
-        print("231")
         signInViewControllerCoordinator?.goToSignInWithEmail()
     }
     
