@@ -20,3 +20,7 @@ enum ErrorEnum: String, Error {
     
     static var isPressented = false
 }
+
+enum Verifivation {
+    case verification, noVerification
+}

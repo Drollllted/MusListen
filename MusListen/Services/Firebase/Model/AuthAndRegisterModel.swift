@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Auth {
+struct AuthRegData {
     let email: String
     let password: String
 }
 
-struct Register {
+struct UserRegData{
     let email: String
     let password: String
     let userName: String?
