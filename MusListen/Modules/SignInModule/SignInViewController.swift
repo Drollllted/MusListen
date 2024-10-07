@@ -17,11 +17,14 @@ final class SignInViewController: UIViewController {
         view = signInView
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         title = "Sign In"
+    }
+    
+    private func objcFunctionsForButton() {
+        
     }
     
 }
