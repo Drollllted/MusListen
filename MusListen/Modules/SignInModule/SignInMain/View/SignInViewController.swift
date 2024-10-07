@@ -21,10 +21,22 @@ final class SignInViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         title = "Sign In"
+        objcFunctionsForButton()
     }
     
     private func objcFunctionsForButton() {
-        
+        signInView.loginWithEmailButton.addTarget(self, action: #selector(goToSignInWithEmail), for: .touchUpInside)
+        signInView.signUpButton.addTarget(self, action: #selector(goToSignUp), for: .touchUpInside)
+    }
+    
+    //MARK: - Segue
+    
+    @objc private func goToSignInWithEmail() {
+        signInViewControllerCoordinator?.goToSignInWithEmail()
+    }
+    
+    @objc private func goToSignUp() {
+        signInViewControllerCoordinator?.goToSignUP()
     }
     
 }
