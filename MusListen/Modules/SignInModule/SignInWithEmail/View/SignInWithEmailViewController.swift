@@ -10,10 +10,16 @@ import UIKit
 final class SignInWithEmailViewController: UIViewController {
     
     weak var signInWithEmailCoordinator: SignInWithEmailCoordinator?
+    private var signInWithEmailView: SignInWithEmailView!
+    
+    override func loadView() {
+        signInWithEmailView = SignInWithEmailView()
+        view = signInWithEmailView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .brown
+        view.backgroundColor = .black
     }
     
     

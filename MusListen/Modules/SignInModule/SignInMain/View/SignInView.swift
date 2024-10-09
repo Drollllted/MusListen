@@ -9,11 +9,13 @@ import UIKit
 
 final class SignInView: UIView {
     
-    private var customButton = CustomButton()
+    let googleButton = CustomButton().setupConnectWithButton(logo: "logoGoogle", name: "Google")
+    let faceBookButton = CustomButton().setupConnectWithButton(logo: "logoFacebook", name: "Facebook")
+    let appleButton = CustomButton().setupConnectWithButton(logo: "logoApple", name: "Apple")
     
     //MARK: - Logo
     
-    lazy var logoImage: UIImageView = {
+    private lazy var logoImage: UIImageView = {
         let image = UIImageView()
         image.image = .logo
         image.contentMode = .scaleAspectFill
@@ -22,7 +24,7 @@ final class SignInView: UIView {
         return image
     }()
     
-    lazy var hiLabel: UILabel = {
+    private lazy var hiLabel: UILabel = {
         let label = UILabel()
         label.text = "Let’s get you in"
         label.textColor = .white
@@ -36,13 +38,16 @@ final class SignInView: UIView {
     
     //MARK: - Register Buttons For Google, Apple, Facebook
     
-    lazy var stackButtonsRegister: UIStackView = {
+   private lazy var stackButtonsRegister: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 10
         stack.alignment = .center
         
         stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.addArrangedSubview(googleButton)
+        stack.addArrangedSubview(faceBookButton)
+        stack.addArrangedSubview(appleButton)
         
         return stack
     }()
@@ -75,7 +80,7 @@ final class SignInView: UIView {
         return button
     }()
     
-    lazy var signUpLabel: UILabel = {
+    private lazy var signUpLabel: UILabel = {
         let label = UILabel()
         label.text = "Don’t have an account?"
         label.textColor = .white
@@ -116,14 +121,6 @@ final class SignInView: UIView {
         setupUI()
         
         constraintsUI()
-        
-        let googleButton = customButton.setupConnectWithButton(logo: "logoGoogle", name: "Google")
-        let faceBookButton = customButton.setupConnectWithButton(logo: "logoFacebook", name: "Facebook")
-        let appleButton = customButton.setupConnectWithButton(logo: "logoApple", name: "Apple")
-        
-        stackButtonsRegister.addArrangedSubview(googleButton)
-        stackButtonsRegister.addArrangedSubview(faceBookButton)
-        stackButtonsRegister.addArrangedSubview(appleButton)
     }
     
     required init?(coder: NSCoder) {
@@ -147,7 +144,7 @@ extension SignInView {
             logoImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             logoImage.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
             logoImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
-            logoImage.heightAnchor.constraint(equalToConstant: 250),
+            logoImage.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.height / 2) - 190 ),
             
             hiLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             hiLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
