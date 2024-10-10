@@ -9,6 +9,8 @@ import UIKit
 
 final class OnBoardingView: UIView {
     
+    lazy var getStartedButton = CustomButton().loginButton(name: "Get Started")
+    
     lazy var womanBackgroundImage: UIImageView = {
         let view = UIImageView()
         view.image = .womanBackground
@@ -44,19 +46,6 @@ final class OnBoardingView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
-    }()
-    
-    lazy var getStartedButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Get Started", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        
-        button.layer.cornerRadius = 30
-        button.backgroundColor = .onBoardBack
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
     }()
     
     override init(frame: CGRect) {
@@ -99,7 +88,6 @@ extension OnBoardingView {
             
             getStartedButton.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 10),
             getStartedButton.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -10),
-            getStartedButton.heightAnchor.constraint(equalToConstant: 60),
             getStartedButton.bottomAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
