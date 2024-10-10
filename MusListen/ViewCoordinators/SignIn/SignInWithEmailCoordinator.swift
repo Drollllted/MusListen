@@ -21,4 +21,10 @@ final class SignInWithEmailCoordinator: BaseCoordinator {
         navigationController.pushViewController(signInWithEmailViewController, animated: true)
     }
     
+    func goToSignUp() {
+        let signUpViewControllerCoordinator = SignUpCoordinator(navigationController: navigationController)
+        add(coordinator: signUpViewControllerCoordinator)
+        signUpViewControllerCoordinator.start()
+    }
+    
 }
