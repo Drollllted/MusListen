@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum VeriablesForTextField: String {
+    case email = "Your's email"
+    case password = "Your's password"
+    case nickName = "Your's nickname"
+}
+
 final class CustomTextField: UIView {
     
     func createTextField(isPassword: Bool) -> UIView {
@@ -40,6 +46,7 @@ final class CustomTextField: UIView {
             textField.placeholder = isPassword ? "Your's Password" : "Your's Login"
             textField.textContentType = isPassword ? .password : .emailAddress
             textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+            textField.textColor = .white
             
             textField.translatesAutoresizingMaskIntoConstraints = false
             return textField

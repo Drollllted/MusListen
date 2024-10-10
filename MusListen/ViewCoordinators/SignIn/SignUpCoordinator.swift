@@ -21,4 +21,10 @@ final class SignUpCoordinator: BaseCoordinator {
         self.navigationController.pushViewController(signUpViewController, animated: true)
     }
     
+    func goToSignIn() {
+        let signInViewControllerCoordinator = SignInViewControllerCoordinator(navigationController: navigationController)
+        add(coordinator: signInViewControllerCoordinator)
+        signInViewControllerCoordinator.start()
+    }
+    
 }
