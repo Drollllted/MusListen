@@ -9,8 +9,8 @@ import UIKit
 
 final class SignInWithEmailView: UIView {
     
-    private let emailTF = CustomTextField().createTextField(isPassword: false)
-    private let passwordTF = CustomTextField().createTextField(isPassword: true)
+    lazy var emailTF = CustomTextField().createTextField(isPassword: false)
+    lazy var passwordTF = CustomTextField().createTextField(isPassword: true)
     
     private lazy var imageLogo: UIImageView = {
         let image = UIImageView()
@@ -46,6 +46,76 @@ final class SignInWithEmailView: UIView {
         return stack
     }()
     
+    //MARK: - Login button
+    
+    lazy var loginButton = CustomButton().loginButton(name: "Sign In")
+    
+    //MARK: - Login with Apple etc. and Or
+    
+    private lazy var orConnectionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Or Connection With:"
+        label.font = .customFont(named: .afacadFluxBold, size: 20)
+        label.textColor = .white
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private lazy var connectWithStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 30
+        stack.alignment = .center
+        stack.distribution = .equalSpacing
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
+    lazy var googleButton: UIButton = CustomButton().roundedButtonLogin(imageLogo: "logoGoogle")
+    lazy var facebookButton: UIButton = CustomButton().roundedButtonLogin(imageLogo: "logoFacebook")
+    lazy var appleButton: UIButton = CustomButton().roundedButtonLogin(imageLogo: "logoApple")
+    
+    //MARK: Sign UP Stack
+    
+    private lazy var signUpLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Don’t have an account?"
+        label.textColor = .white
+        label.font = .customFont(named: .afacadFluxSemiBold, size: 18)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Sign Up", for: .normal)
+        button.setTitleColor(.onBoardBack, for: .normal)
+        button.titleLabel?.font = .customFont(named: .afacadFluxSemiBold, size: 18)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    private lazy var signUpStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 5
+        stack.alignment = .center
+        
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.addArrangedSubview(signUpLabel)
+        stack.addArrangedSubview(signUpButton)
+        
+        return stack
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -54,6 +124,10 @@ final class SignInWithEmailView: UIView {
         
         textFieldStack.addArrangedSubview(emailTF)
         textFieldStack.addArrangedSubview(passwordTF)
+        
+        connectWithStack.addArrangedSubview(googleButton)
+        connectWithStack.addArrangedSubview(facebookButton)
+        connectWithStack.addArrangedSubview(appleButton)
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +140,10 @@ extension SignInWithEmailView {
         addSubview(imageLogo)
         addSubview(signInWithEmailLabel)
         addSubview(textFieldStack)
+        addSubview(loginButton)
+        addSubview(orConnectionLabel)
+        addSubview(connectWithStack)
+        addSubview(signUpStack)
     }
     
     func constraintsUI() {
@@ -81,6 +159,19 @@ extension SignInWithEmailView {
             textFieldStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textFieldStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             textFieldStack.topAnchor.constraint(equalTo: signInWithEmailLabel.bottomAnchor, constant: 15),
+            
+            loginButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            loginButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
+            loginButton.topAnchor.constraint(equalTo: textFieldStack.bottomAnchor, constant: 20),
+            
+            orConnectionLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            orConnectionLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+            
+            connectWithStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            connectWithStack.topAnchor.constraint(equalTo: orConnectionLabel.bottomAnchor, constant: 20),
+            
+            signUpStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            signUpLabel.topAnchor.constraint(equalTo: connectWithStack.bottomAnchor, constant: 5),
         ])
     }
 }

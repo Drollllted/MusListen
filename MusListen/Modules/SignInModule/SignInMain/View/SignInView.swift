@@ -9,9 +9,13 @@ import UIKit
 
 final class SignInView: UIView {
     
-    let googleButton = CustomButton().setupConnectWithButton(logo: "logoGoogle", name: "Google")
-    let faceBookButton = CustomButton().setupConnectWithButton(logo: "logoFacebook", name: "Facebook")
-    let appleButton = CustomButton().setupConnectWithButton(logo: "logoApple", name: "Apple")
+    //MARK: - Properties
+    
+    lazy var googleButton = CustomButton().setupConnectWithButton(logo: "logoGoogle", name: "Google")
+    lazy var faceBookButton = CustomButton().setupConnectWithButton(logo: "logoFacebook", name: "Facebook")
+    lazy var appleButton = CustomButton().setupConnectWithButton(logo: "logoApple", name: "Apple")
+    
+    lazy var loginWithEmailButton = CustomButton().loginButton(name: "Log in with a password")
     
     //MARK: - Logo
     
@@ -64,20 +68,6 @@ final class SignInView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
-    }()
-    
-    lazy var loginWithEmailButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Log in with a password", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .customFont(named: .afacadFluxBold, size: 20)
-        
-        button.backgroundColor = .onBoardBack
-        button.layer.cornerRadius = 30
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
     }()
     
     private lazy var signUpLabel: UILabel = {
@@ -159,7 +149,6 @@ extension SignInView {
             
             loginWithEmailButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             loginWithEmailButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
-            loginWithEmailButton.heightAnchor.constraint(equalToConstant: 60),
             loginWithEmailButton.topAnchor.constraint(equalTo: orLabel.bottomAnchor, constant: 20),
             
             signUpStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
