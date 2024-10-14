@@ -70,6 +70,8 @@ final class CustomTextField: UITextField {
             textField.isSecureTextEntry = true
             textField.autocapitalizationType = .none
             textField.autocorrectionType = .no
+        }else if type == .email && type == .nickName {
+            textField.isSecureTextEntry = false
         }
         
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -96,5 +98,9 @@ final class CustomTextField: UITextField {
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
             textField.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    func textInput(text: String) {
+        textField.text = text
     }
 }

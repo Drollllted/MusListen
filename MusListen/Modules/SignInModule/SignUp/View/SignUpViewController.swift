@@ -12,6 +12,8 @@ final class SignUpViewController: UIViewController {
     weak var signUpCoordinator: SignUpCoordinator?
     private var signUpView: SignUpView!
     
+    private let firebaseService = FirebaseService.shared
+    
     override func loadView() {
         signUpView = SignUpView()
         view = signUpView
@@ -32,8 +34,8 @@ final class SignUpViewController: UIViewController {
     }
     
     private func objcFunctions() {
-        signUpView.signUpButton.addTarget(self, action: #selector(goToSignIn), for: .touchUpInside)
-        signUpView.signUpButton.addTarget(self, action: #selector(signUp), for: .touchUpInside)
+        signUpView.signInButton.addTarget(self, action: #selector(goToSignIn), for: .touchUpInside)
+        signUpView.signUpButton.addTarget(self, action: #selector(signUpAction), for: .touchUpInside)
     }
     
     @objc private func pop() {
@@ -44,16 +46,30 @@ final class SignUpViewController: UIViewController {
         signUpCoordinator?.goToSignIn()
     }
     
-    @objc private func signUp() {
-        guard let email = signUpView.emailTextField.text,
-                  !email.isEmpty,
-                  let password = signUpView.passwordTextField.text,
-                  !password.isEmpty,
-                  let nickName = signUpView.nickNameTextField.text,
-                  !nickName.isEmpty else {return}
+    @objc private func signUpAction() {
+        print("231")
+        guard let emailTF = signUpView.emailTextFieldTF.text,
+              let passwordTF = signUpView.passwordTextFieldTF.text,
+              let nickNameTF = signUpView.nickNameTF.text else {
+            print("Error: Text fields are not CustomTextField instances")
+            return
+        }
         
-        let newUser = UserRegData(email: email, password: password, userName: nickName)
+        print(emailTF)
+        print(passwordTF)
+        print(nickNameTF)
         
+        print("not error with textFields")
+        
+        let newUser = UserRegData(email: emailTF, password: passwordTF, userName: nickNameTF)
+        firebaseService.registerForEmail(authRegister: newUser) { result in
+            switch result{
+            case .success(_):
+                print("Success")
+            case .failure(_):
+                print("error")
+            }
+        }
     }
     
 }
