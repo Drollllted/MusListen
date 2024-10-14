@@ -40,8 +40,11 @@ final class FirebaseService {
                 return
             }
             
+            print("231")
+            
             result?.user.sendEmailVerification()
             self.signOut()
+            print("321")
             completion(.success(true))
         }
     }

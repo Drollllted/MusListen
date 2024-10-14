@@ -32,9 +32,78 @@ final class SignUpView: UIView {
     
     //MARK: - TextFields
     
-    lazy var nickNameTextField = CustomTextField(type: .nickName)
-    lazy var emailTextField = CustomTextField(type: .email)
-    lazy var passwordTextField = CustomTextField(type: .password)
+//    lazy var nickNameTextField: CustomTextField = {
+//
+//    }()
+//    lazy var emailTextField = CustomTextField(type: .email)
+//    lazy var passwordTextField = CustomTextField(type: .password)
+    
+    func createTextFields(of type: VariablesForTextField, textField: UITextField) -> UIView {
+        
+        lazy var backView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .backbutton
+            
+            view.layer.cornerRadius = 15
+            view.layer.borderWidth = 1
+            view.layer.borderColor = UIColor.gray.cgColor
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            
+            return view
+        }()
+        
+        lazy var leftIcon: UIImageView = {
+            let image = UIImageView()
+            image.contentMode = .scaleAspectFill
+            image.image = type.image
+            image.translatesAutoresizingMaskIntoConstraints = false
+            image.tintColor = .gray
+            
+            return image
+        }()
+        
+        textField.placeholder = type.placeholder
+        textField.textContentType = type.contentType
+        textField.attributedPlaceholder = NSAttributedString(string: type.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        textField.textColor = .white
+        
+        if type == .password {
+            textField.isSecureTextEntry = true
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+        }else if type == .email && type == .nickName {
+            textField.isSecureTextEntry = false
+        }
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(backView)
+        backView.addSubview(leftIcon)
+        backView.addSubview(textField)
+        
+        NSLayoutConstraint.activate([
+            backView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 30),
+            backView.heightAnchor.constraint(equalToConstant: 60),
+            
+            leftIcon.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 15),
+            leftIcon.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            leftIcon.heightAnchor.constraint(equalToConstant: 15),
+            leftIcon.widthAnchor.constraint(equalToConstant: 15),
+            
+            textField.leadingAnchor.constraint(equalTo: leftIcon.trailingAnchor, constant: 15),
+            textField.topAnchor.constraint(equalTo: backView.topAnchor),
+            textField.bottomAnchor.constraint(equalTo: backView.bottomAnchor),
+            textField.trailingAnchor.constraint(equalTo: backView.trailingAnchor)
+        ])
+        
+        return backView
+        
+    }
+    
+    let nickNameTF = UITextField()
+    let emailTextFieldTF = UITextField()
+    let passwordTextFieldTF = UITextField()
     
     private lazy var stackTextFields: UIStackView = {
         let stack = UIStackView()
@@ -93,6 +162,13 @@ final class SignUpView: UIView {
         setupUI()
         
         constraintsUI()
+        
+        let nickNameTextField = createTextFields(of: .nickName, textField: nickNameTF)
+        nickNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        let emailTextField = createTextFields(of: .email, textField: emailTextFieldTF)
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        let passwordTextField = createTextFields(of: .password, textField: passwordTextFieldTF)
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         stackTextFields.addArrangedSubview(nickNameTextField)
         stackTextFields.addArrangedSubview(emailTextField)
