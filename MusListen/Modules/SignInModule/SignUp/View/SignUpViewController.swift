@@ -33,6 +33,7 @@ final class SignUpViewController: UIViewController {
     
     private func objcFunctions() {
         signUpView.signUpButton.addTarget(self, action: #selector(goToSignIn), for: .touchUpInside)
+        signUpView.signUpButton.addTarget(self, action: #selector(signUp), for: .touchUpInside)
     }
     
     @objc private func pop() {
@@ -41,6 +42,18 @@ final class SignUpViewController: UIViewController {
     
     @objc private func goToSignIn() {
         signUpCoordinator?.goToSignIn()
+    }
+    
+    @objc private func signUp() {
+        guard let email = signUpView.emailTextField.text,
+                  !email.isEmpty,
+                  let password = signUpView.passwordTextField.text,
+                  !password.isEmpty,
+                  let nickName = signUpView.nickNameTextField.text,
+                  !nickName.isEmpty else {return}
+        
+        let newUser = UserRegData(email: email, password: password, userName: nickName)
+        
     }
     
 }
