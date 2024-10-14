@@ -7,80 +7,94 @@
 
 import UIKit
 
-enum VeriablesForTextField: String {
-    case email = "Your's email"
-    case password = "Your's password"
-    case nickName = "Your's nickname"
-}
-
-final class CustomTextField: UIView {
+enum VariablesForTextField: String {
+    case email
+    case password
+    case nickName
     
-    func createTextField(isPassword: Bool) -> UIView {
-        
-        lazy var viewForTextField: UIView = {
-            let view = UIView()
-            view.backgroundColor = .backbutton
-            
-            view.layer.cornerRadius = 15
-            view.layer.borderWidth = 1
-            view.layer.borderColor = UIColor.gray.cgColor
-            
-            view.translatesAutoresizingMaskIntoConstraints = false
-            
-            return view
-        }()
-        
-        lazy var leftImage: UIImageView = {
-            let image = UIImageView()
-            image.image = isPassword ? .lock : .mail
-            image.contentMode = .scaleAspectFill
-            image.tintColor = .gray
-            image.translatesAutoresizingMaskIntoConstraints = false
-            image.heightAnchor.constraint(equalToConstant: 15).isActive = true
-            image.widthAnchor.constraint(equalToConstant: 15).isActive = true
-            return image
-        }()
-        
-        lazy var textFieldForView: UITextField = {
-            let textField = UITextField()
-            textField.placeholder = isPassword ? "Your's Password" : "Your's Login"
-            textField.textContentType = isPassword ? .password : .emailAddress
-            textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
-            textField.textColor = .white
-            
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            return textField
-        }()
-        
-        self.addSubview(viewForTextField)
-        viewForTextField.addSubview(leftImage)
-        viewForTextField.addSubview(textFieldForView)
-        
-        
-        NSLayoutConstraint.activate([
-            viewForTextField.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 30),
-            viewForTextField.heightAnchor.constraint(equalToConstant: 60),
-            
-            leftImage.leadingAnchor.constraint(equalTo: viewForTextField.leadingAnchor, constant: 15),
-            leftImage.centerYAnchor.constraint(equalTo: viewForTextField.centerYAnchor),
-            
-            textFieldForView.leadingAnchor.constraint(equalTo: leftImage.trailingAnchor, constant: 15),
-            textFieldForView.topAnchor.constraint(equalTo: viewForTextField.topAnchor),
-            textFieldForView.bottomAnchor.constraint(equalTo: viewForTextField.bottomAnchor),
-            textFieldForView.trailingAnchor.constraint(equalTo: viewForTextField.trailingAnchor),
-            
-        ])
-        
-        return viewForTextField
-            
+    var placeholder: String {
+        switch self {
+        case .email: return "Your's email"
+        case .password: return "Your's Password"
+        case .nickName: return "Your's nickname"
+        }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var contentType: UITextContentType {
+        switch self {
+        case .email: return .emailAddress
+        case .password: return .newPassword
+        default: return .name
+        }
+    }
+    
+    var image: UIImage? {
+        switch self {
+        case .email: return UIImage(systemName: "envelope.fill")
+        case .password: return UIImage(systemName: "lock.fill")
+        case .nickName: return UIImage(systemName: "person.fill")
+        }
+    }
+}
+
+final class CustomTextField: UITextField {
+    
+    private let textField: UITextField
+    
+    init(type: VariablesForTextField) {
+        textField = UITextField()
+        super.init(frame: .zero)
+        
+        setupView(type: type)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupView(type: VariablesForTextField) {
+        backgroundColor = .backbutton
+        
+        layer.cornerRadius = 15
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.gray.cgColor
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        textField.placeholder = type.placeholder
+        textField.textContentType = type.contentType
+        textField.attributedPlaceholder = NSAttributedString(string: type.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        textField.textColor = .white
+        
+        if type == .password {
+            textField.isSecureTextEntry = true
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+        }
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        let leftImage = UIImageView(image: type.image)
+        leftImage.contentMode = .scaleAspectFill
+        leftImage.tintColor = .gray
+        leftImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(textField)
+        textField.addSubview(leftImage)
+        
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 30),
+            heightAnchor.constraint(equalToConstant: 60),
+            
+            leftImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            leftImage.centerYAnchor.constraint(equalTo: centerYAnchor),
+            leftImage.heightAnchor.constraint(equalToConstant: 15),
+            leftImage.widthAnchor.constraint(equalToConstant: 15),
+            
+            textField.leadingAnchor.constraint(equalTo: leftImage.trailingAnchor, constant: 15),
+            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
 }

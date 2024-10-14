@@ -10,6 +10,11 @@ import Firebase
 import FirebaseStorage
 import FirebaseAuth
 
+protocol SignUpWithEmail: Any {
+    func registerForEmail(authRegister: UserRegData, completion: @escaping (Result<Bool, ErrorEnum>) -> ())
+    
+}
+
 final class FirebaseService {
     
     static let shared = FirebaseService()
@@ -20,15 +25,32 @@ final class FirebaseService {
     
     func authForEmail(auth: AuthRegData, completion: @escaping ((Result<Bool, ErrorEnum>) -> ())) {
         Auth.auth().signIn(withEmail: auth.email, password: auth.password) { [weak self] result, err in
-            guard let self = self else {return}
+           
         }
     }
     
     //MARK: - Register
     
     func registerForEmail(authRegister: UserRegData, completion: @escaping (Result<Bool, ErrorEnum>) -> ()) {
-        Auth.auth().createUser(withEmail: authRegister.email, password: authRegister.password) {result, err in
+        Auth.auth().createUser(withEmail: authRegister.email, password: authRegister.password) { [weak self] result, err in
+            guard let self = self else {return}
+            guard err == nil else {
+                print(err!)
+                completion(.failure(.failUpdateEmailOrPassword))
+                return
+            }
             
+            result?.user.sendEmailVerification()
+            self.signOut()
+            completion(.success(true))
+        }
+    }
+    
+    func signOut() {
+        do{
+            try Auth.auth().signOut()
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
