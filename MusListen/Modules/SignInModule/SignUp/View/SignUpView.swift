@@ -32,9 +32,9 @@ final class SignUpView: UIView {
     
     //MARK: - TextFields
     
-    lazy var nickNameTextField = CustomTextField().createTextField(isPassword: false)
-    lazy var emailTextField = CustomTextField().createTextField(isPassword: false)
-    lazy var passwordTextField = CustomTextField().createTextField(isPassword: true)
+    lazy var nickNameTextField = CustomTextField(type: .nickName)
+    lazy var emailTextField = CustomTextField(type: .email)
+    lazy var passwordTextField = CustomTextField(type: .password)
     
     private lazy var stackTextFields: UIStackView = {
         let stack = UIStackView()

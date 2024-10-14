@@ -9,8 +9,8 @@ import UIKit
 
 final class SignInWithEmailView: UIView {
     
-    lazy var emailTF = CustomTextField().createTextField(isPassword: false)
-    lazy var passwordTF = CustomTextField().createTextField(isPassword: true)
+    lazy var emailTF = CustomTextField(type: .email)
+    lazy var passwordTF = CustomTextField(type: .password)
     
     private lazy var imageLogo: UIImageView = {
         let image = UIImageView()
