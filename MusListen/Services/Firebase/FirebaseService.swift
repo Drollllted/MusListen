@@ -10,16 +10,11 @@ import Firebase
 import FirebaseStorage
 import FirebaseAuth
 
-protocol SignUpWithEmail: Any {
-    func registerForEmail(authRegister: UserRegData, completion: @escaping (Result<Bool, ErrorEnum>) -> ())
-    
-}
-
 final class FirebaseService {
     
     static let shared = FirebaseService()
     
-    private init(){}
+    init(){}
     
     //MARK: - Auth
     

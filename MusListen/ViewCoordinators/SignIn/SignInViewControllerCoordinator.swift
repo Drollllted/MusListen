@@ -29,7 +29,7 @@ final class SignInViewControllerCoordinator: BaseCoordinator {
     }
     
     func goToSignUP() {
-        let signUpCoordinator = SignUpCoordinator(navigationController: navigationController)
+        let signUpCoordinator = SignUpCoordinator(navigationController: navigationController, viewModel: SignUpViewModel(firebaseService: FirebaseService()))
         add(coordinator: signUpCoordinator)
         signUpCoordinator.start()
     }

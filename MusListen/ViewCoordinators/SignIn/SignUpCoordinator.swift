@@ -10,13 +10,15 @@ import UIKit
 final class SignUpCoordinator: BaseCoordinator {
     
     private var navigationController: UINavigationController
+    private var signUpViewModel: SignUpViewModel
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, viewModel: SignUpViewModel) {
         self.navigationController = navigationController
+        self.signUpViewModel = viewModel
     }
     
     override func start() {
-        let signUpViewController = SignUpViewController()
+        let signUpViewController = SignUpViewController(viewModel: signUpViewModel)
         signUpViewController.signUpCoordinator = self
         self.navigationController.pushViewController(signUpViewController, animated: true)
     }
