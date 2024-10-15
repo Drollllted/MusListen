@@ -55,7 +55,6 @@ final class CustomButton: UIView {
             return label
         }()
         
-        self.addSubview(backButton)
         backButton.addSubview(stackForButton)
         
         NSLayoutConstraint.activate([
@@ -103,51 +102,39 @@ final class CustomButton: UIView {
     
     func roundedButtonLogin(imageLogo: String) -> UIButton {
         
-        lazy var buttonUI: UIButton = {
+        lazy var roundedButton: UIButton = {
             let button = UIButton()
-            button.backgroundColor = .clear
+            button.tintColor = .backbutton
             button.translatesAutoresizingMaskIntoConstraints = false
+            button.layer.cornerRadius = 33
             
             return button
         }()
         
-        lazy var roundedView: UIView = {
-            let view = UIView()
-            view.backgroundColor = .backbutton
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.clipsToBounds = true
-            view.layer.cornerRadius = 33
-            
-            return view
-        }()
-        
-        lazy var logoImage: UIImageView = {
+        lazy var imageView: UIImageView = {
             let image = UIImageView()
-            image.image = UIImage(named: imageLogo)
             image.contentMode = .scaleAspectFill
+            image.image = UIImage(named: imageLogo)
             
             image.translatesAutoresizingMaskIntoConstraints = false
             
             return image
         }()
-        self.addSubview(buttonUI)
-        buttonUI.addSubview(roundedView)
-        roundedView.addSubview(logoImage)
+        
+        self.addSubview(roundedButton)
+        roundedButton.addSubview(imageView)
         
         NSLayoutConstraint.activate([
-            buttonUI.heightAnchor.constraint(equalToConstant: 65),
-            buttonUI.widthAnchor.constraint(equalToConstant: 65),
+            roundedButton.heightAnchor.constraint(equalToConstant: 65),
+            roundedButton.widthAnchor.constraint(equalToConstant: 65),
             
-            roundedView.heightAnchor.constraint(equalToConstant: 60),
-            roundedView.widthAnchor.constraint(equalToConstant: 60),
-            
-            logoImage.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
-            logoImage.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor),
-            logoImage.heightAnchor.constraint(equalToConstant: 30),
-            logoImage.widthAnchor.constraint(equalToConstant: 30),
+            imageView.centerXAnchor.constraint(equalTo: roundedButton.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: roundedButton.centerYAnchor),
+            imageView.heightAnchor.constraint(equalTo: roundedButton.heightAnchor, multiplier: 0.5),
+            imageView.widthAnchor.constraint(equalTo: roundedButton.widthAnchor, multiplier: 0.5)
         ])
         
-        return buttonUI
+        return roundedButton
         
     }
     

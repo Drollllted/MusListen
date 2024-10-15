@@ -9,8 +9,8 @@ import UIKit
 
 final class SignInWithEmailView: UIView {
     
-    lazy var emailTF = CustomTextField(type: .email)
-    lazy var passwordTF = CustomTextField(type: .password)
+    lazy var email = UITextField()
+    lazy var password = UITextField()
     
     private lazy var imageLogo: UIImageView = {
         let image = UIImageView()
@@ -34,6 +34,69 @@ final class SignInWithEmailView: UIView {
     }()
     
     //MARK: - email and password tf
+    
+    func createTextFields(of type: VariablesForTextField, textField: UITextField) -> UIView {
+        
+        lazy var backView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .backbutton
+            
+            view.layer.cornerRadius = 15
+            view.layer.borderWidth = 1
+            view.layer.borderColor = UIColor.gray.cgColor
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            
+            return view
+        }()
+        
+        lazy var leftIcon: UIImageView = {
+            let image = UIImageView()
+            image.contentMode = .scaleAspectFill
+            image.image = type.image
+            image.translatesAutoresizingMaskIntoConstraints = false
+            image.tintColor = .gray
+            
+            return image
+        }()
+        
+        textField.placeholder = type.placeholder
+        textField.textContentType = type.contentType
+        textField.attributedPlaceholder = NSAttributedString(string: type.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        textField.textColor = .white
+        
+        if type == .password {
+            textField.isSecureTextEntry = true
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+        }else if type == .email && type == .nickName {
+            textField.isSecureTextEntry = false
+        }
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(backView)
+        backView.addSubview(leftIcon)
+        backView.addSubview(textField)
+        
+        NSLayoutConstraint.activate([
+            backView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 30),
+            backView.heightAnchor.constraint(equalToConstant: 60),
+            
+            leftIcon.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 15),
+            leftIcon.centerYAnchor.constraint(equalTo: backView.centerYAnchor),
+            leftIcon.heightAnchor.constraint(equalToConstant: 15),
+            leftIcon.widthAnchor.constraint(equalToConstant: 15),
+            
+            textField.leadingAnchor.constraint(equalTo: leftIcon.trailingAnchor, constant: 15),
+            textField.topAnchor.constraint(equalTo: backView.topAnchor),
+            textField.bottomAnchor.constraint(equalTo: backView.bottomAnchor),
+            textField.trailingAnchor.constraint(equalTo: backView.trailingAnchor)
+        ])
+        
+        return backView
+        
+    }
     
     private lazy var textFieldStack: UIStackView = {
         let stack = UIStackView()
@@ -74,6 +137,66 @@ final class SignInWithEmailView: UIView {
         
         return stack
     }()
+    
+    func roundedButtonLogin(imageLogo: String) -> UIButton {
+        
+        lazy var buttonUI: UIButton = {
+            let button = UIButton()
+            button.backgroundColor = .clear
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.isUserInteractionEnabled = true
+            
+            return button
+        }()
+        
+        lazy var roundedButton: UIButton = {
+            let button = UIButton()
+            button.layer.cornerRadius = 33
+            button.setImage(UIImage(named: imageLogo), for: .normal)
+            button.tintColor = .backbutton
+            button.translatesAutoresizingMaskIntoConstraints = false
+            return button
+        }()
+        
+        lazy var roundedView: UIView = {
+            let view = UIView()
+            view.backgroundColor = .backbutton
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.clipsToBounds = true
+            view.layer.cornerRadius = 33
+            
+            return view
+        }()
+        
+        lazy var logoImage: UIImageView = {
+            let image = UIImageView()
+            image.image = UIImage(named: imageLogo)
+            image.contentMode = .scaleAspectFill
+            
+            image.translatesAutoresizingMaskIntoConstraints = false
+            
+            return image
+        }()
+        self.addSubview(buttonUI)
+        buttonUI.addSubview(roundedView)
+        roundedView.addSubview(logoImage)
+        
+        NSLayoutConstraint.activate([
+            buttonUI.heightAnchor.constraint(equalToConstant: 65),
+            buttonUI.widthAnchor.constraint(equalToConstant: 65),
+            
+            roundedView.heightAnchor.constraint(equalToConstant: 60),
+            roundedView.widthAnchor.constraint(equalToConstant: 60),
+            
+            logoImage.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
+            logoImage.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor),
+            logoImage.heightAnchor.constraint(equalToConstant: 30),
+            logoImage.widthAnchor.constraint(equalToConstant: 30),
+        ])
+        
+        return buttonUI
+        
+    }
     
     lazy var googleButton: UIButton = CustomButton().roundedButtonLogin(imageLogo: "logoGoogle")
     lazy var facebookButton: UIButton = CustomButton().roundedButtonLogin(imageLogo: "logoFacebook")
@@ -121,6 +244,9 @@ final class SignInWithEmailView: UIView {
         setupUI()
         
         constraintsUI()
+        
+        let emailTF = createTextFields(of: .email, textField: email)
+        let passwordTF = createTextFields(of: .password, textField: password)
         
         textFieldStack.addArrangedSubview(emailTF)
         textFieldStack.addArrangedSubview(passwordTF)

@@ -23,7 +23,7 @@ final class SignInViewControllerCoordinator: BaseCoordinator {
     }
     
     func goToSignInWithEmail() {
-        let signInWithEmailCoordinator = SignInWithEmailCoordinator(navigationController: navigationController)
+        let signInWithEmailCoordinator = SignInWithEmailCoordinator(navigationController: navigationController, viewModel: SignInWithEmailViewModel(firebaseService: FirebaseService()))
         add(coordinator: signInWithEmailCoordinator)
         signInWithEmailCoordinator.start()
     }
