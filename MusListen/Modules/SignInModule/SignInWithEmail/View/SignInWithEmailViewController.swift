@@ -83,9 +83,9 @@ final class SignInWithEmailViewController: UIViewController {
     }
     
     @objc private func signWithGoogle() async {
-        do{
+        do {
             try await viewModel.signWithGoogle()
-            print("Google is Pressed")
+            print("Successfully signed in with Google")
         } catch {
             print(error.localizedDescription)
         }

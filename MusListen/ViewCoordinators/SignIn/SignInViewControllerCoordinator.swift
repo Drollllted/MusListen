@@ -16,20 +16,22 @@ final class SignInViewControllerCoordinator: BaseCoordinator {
     }
     
     override func start() {
-        let signInViewController = SignInViewController()
+        let firebase = FirebaseService.shared
+        let viewModel = SignInViewModel(firebaseServise: firebase)
+        let signInViewController = SignInViewController(viewModel: viewModel)
         signInViewController.signInViewControllerCoordinator = self
         signInViewController.navigationItem.hidesBackButton = true
         self.navigationController.pushViewController(signInViewController, animated: true)
     }
     
     func goToSignInWithEmail() {
-        let signInWithEmailCoordinator = SignInWithEmailCoordinator(navigationController: navigationController, viewModel: SignInWithEmailViewModel(firebaseService: FirebaseService()))
+        let signInWithEmailCoordinator = SignInWithEmailCoordinator(navigationController: navigationController)
         add(coordinator: signInWithEmailCoordinator)
         signInWithEmailCoordinator.start()
     }
     
     func goToSignUP() {
-        let signUpCoordinator = SignUpCoordinator(navigationController: navigationController, viewModel: SignUpViewModel(firebaseService: FirebaseService()))
+        let signUpCoordinator = SignUpCoordinator(navigationController: navigationController)
         add(coordinator: signUpCoordinator)
         signUpCoordinator.start()
     }
