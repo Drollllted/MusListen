@@ -12,7 +12,16 @@ final class SignInViewController: UIViewController {
     weak var signInViewControllerCoordinator: SignInViewControllerCoordinator?
     private var signInView: SignInView!
     
-    private let firebaseService = FirebaseService.shared
+    private var viewModel: SignInViewModel
+    
+    init(viewModel: SignInViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         signInView = SignInView()
@@ -42,15 +51,14 @@ final class SignInViewController: UIViewController {
         signInViewControllerCoordinator?.goToSignUP()
     }
     
-    @objc private func signInWithGoogle() async -> Bool {
+    @objc private func signInWithGoogle() async {
         print("qwerty)")
         do{
-            let result = try await firebaseService.authWithGoogle()
-            return result
+            try await viewModel.signWithGoogle()
+            print("Google is Pressed")
         } catch {
             print(error.localizedDescription)
         }
-        return false
     }
     
 }

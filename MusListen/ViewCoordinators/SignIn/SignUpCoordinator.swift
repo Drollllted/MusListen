@@ -10,15 +10,15 @@ import UIKit
 final class SignUpCoordinator: BaseCoordinator {
     
     private var navigationController: UINavigationController
-    private var signUpViewModel: SignUpViewModel
     
-    init(navigationController: UINavigationController, viewModel: SignUpViewModel) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.signUpViewModel = viewModel
     }
     
     override func start() {
-        let signUpViewController = SignUpViewController(viewModel: signUpViewModel)
+        let firebase = FirebaseService.shared
+        let viewModel = SignUpViewModel(firebaseService: firebase)
+        let signUpViewController = SignUpViewController(viewModel: viewModel)
         signUpViewController.signUpCoordinator = self
         self.navigationController.pushViewController(signUpViewController, animated: true)
     }

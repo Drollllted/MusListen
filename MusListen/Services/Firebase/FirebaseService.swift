@@ -94,18 +94,22 @@ final class FirebaseService {
         
         do {
             let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-            let user = userAuthentication.user
-            guard let idToken = user.idToken else {
-                fatalError("ha-ha")
-            }
-            let accessToken = user.accessToken
-            let credentical = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
-            let result = try await Auth.auth().signIn(with: credentical)
-            let firebaseUser = result.user
-            print("User: \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknow")")
-            return true
-        }
-        catch{
+                let user = userAuthentication.user
+                guard let idToken = user.idToken else {
+                    fatalError("No ID token")
+                }
+                let accessToken = user.accessToken
+                let credentical = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                do {
+                    let result = try await Auth.auth().signIn(with: credentical)
+                    let firebaseUser = result.user
+                    print("User: \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
+                    return true
+                } catch {
+                    print(error.localizedDescription)
+                    throw error
+                }
+        }catch {
             print(error.localizedDescription)
             return false
         }
