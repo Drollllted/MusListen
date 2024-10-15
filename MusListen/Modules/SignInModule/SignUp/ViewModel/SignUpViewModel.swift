@@ -18,4 +18,5 @@ final class SignUpViewModel {
     func createAccount(userReg: UserRegData, completion: @escaping (Result<Bool, ErrorEnum>) -> ()) {
         firebaseService.registerForEmail(authRegister: userReg, completion: completion)
     }
+    
 }

@@ -32,12 +32,6 @@ final class SignUpView: UIView {
     
     //MARK: - TextFields
     
-//    lazy var nickNameTextField: CustomTextField = {
-//
-//    }()
-//    lazy var emailTextField = CustomTextField(type: .email)
-//    lazy var passwordTextField = CustomTextField(type: .password)
-    
     func createTextFields(of type: VariablesForTextField, textField: UITextField) -> UIView {
         
         lazy var backView: UIView = {

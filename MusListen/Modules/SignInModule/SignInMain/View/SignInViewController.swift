@@ -12,6 +12,8 @@ final class SignInViewController: UIViewController {
     weak var signInViewControllerCoordinator: SignInViewControllerCoordinator?
     private var signInView: SignInView!
     
+    private let firebaseService = FirebaseService.shared
+    
     override func loadView() {
         signInView = SignInView()
         view = signInView
@@ -27,6 +29,7 @@ final class SignInViewController: UIViewController {
     private func objcFunctionsForButton() {
         signInView.loginWithEmailButton.addTarget(self, action: #selector(goToSignInWithEmail), for: .touchUpInside)
         signInView.signUpButton.addTarget(self, action: #selector(goToSignUp), for: .touchUpInside)
+        signInView.googleButton.addTarget(self, action: #selector(signInWithGoogle), for: .touchUpInside)
     }
     
     //MARK: - Segue
@@ -37,6 +40,17 @@ final class SignInViewController: UIViewController {
     
     @objc private func goToSignUp() {
         signInViewControllerCoordinator?.goToSignUP()
+    }
+    
+    @objc private func signInWithGoogle() async -> Bool {
+        print("qwerty)")
+        do{
+            let result = try await firebaseService.authWithGoogle()
+            return result
+        } catch {
+            print(error.localizedDescription)
+        }
+        return false
     }
     
 }

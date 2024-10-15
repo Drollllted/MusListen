@@ -12,6 +12,17 @@ final class SignInWithEmailViewController: UIViewController {
     weak var signInWithEmailCoordinator: SignInWithEmailCoordinator?
     private var signInWithEmailView: SignInWithEmailView!
     
+    private let viewModel: SignInWithEmailViewModel
+    
+    init(viewModel: SignInWithEmailViewModel){
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         signInWithEmailView = SignInWithEmailView()
         view = signInWithEmailView
@@ -33,6 +44,10 @@ final class SignInWithEmailViewController: UIViewController {
     
     private func objcFunctions() {
         signInWithEmailView.signUpButton.addTarget(self, action: #selector(goToSignUp), for: .touchUpInside)
+        signInWithEmailView.loginButton.addTarget(self, action: #selector(signInAction), for: .touchUpInside)
+        signInWithEmailView.googleButton.addTarget(self, action: #selector(signWithGoogle), for: .touchUpInside)
+        signInWithEmailView.facebookButton.addTarget(self, action: #selector(signWithFacebook), for: .touchUpInside)
+        signInWithEmailView.appleButton.addTarget(self, action: #selector(signWithApple), for: .touchUpInside)
     }
     
     @objc private func pop() {
@@ -43,5 +58,44 @@ final class SignInWithEmailViewController: UIViewController {
         signInWithEmailCoordinator?.goToSignUp()
     }
     
+    @objc private func signInAction() {
+        guard let email = signInWithEmailView.email.text,
+              let password = signInWithEmailView.password.text else {
+            print("error with TextFields")
+            return
+        }
+        
+        guard !email.isEmpty, !password.isEmpty else {
+            print("email or password is Empty")
+            return
+        }
+        
+        let user = AuthRegData(email: email, password: password)
+        viewModel.signInUser(for: user) { result in
+            switch result {
+            case .success(_):
+                print("Success")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
     
+    @objc private func signWithGoogle() async {
+        do{
+            try await viewModel.signWithGoogle()
+            print("Google is Pressed")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    @objc private func signWithFacebook() {
+        print("Signing in with Facebook")
+    }
+    
+    @objc private func signWithApple() {
+        print("Signing in with Apple")
+    }
 }

@@ -12,7 +12,17 @@ final class SignUpViewController: UIViewController {
     weak var signUpCoordinator: SignUpCoordinator?
     private var signUpView: SignUpView!
     
-    private let firebaseService = FirebaseService.shared
+    private let viewModel: SignUpViewModel
+    
+    init(viewModel: SignUpViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func loadView() {
         signUpView = SignUpView()
@@ -62,12 +72,12 @@ final class SignUpViewController: UIViewController {
         print("not error with textFields")
         
         let newUser = UserRegData(email: emailTF, password: passwordTF, userName: nickNameTF)
-        firebaseService.registerForEmail(authRegister: newUser) { result in
+        viewModel.createAccount(userReg: newUser) { result in
             switch result{
             case .success(_):
                 print("Success")
-            case .failure(_):
-                print("error")
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
