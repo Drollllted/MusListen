@@ -65,12 +65,11 @@ final class SignUpViewController: UIViewController {
             return
         }
         
-        print(emailTF)
-        print(passwordTF)
-        print(nickNameTF)
-        
-        print("not error with textFields")
-        
+        guard !emailTF.isEmpty, !passwordTF.isEmpty, !nickNameTF.isEmpty else {
+            print("Error: TextFields is Empty")
+            return
+        }
+
         let newUser = UserRegData(email: emailTF, password: passwordTF, userName: nickNameTF)
         viewModel.createAccount(userReg: newUser) { result in
             switch result{
